@@ -14,8 +14,8 @@ class Claim(database.Model):  # type: ignore[name-defined,misc]
     service_charge = database.Column(database.Integer)
     total_cost = database.Column(database.Integer)
     final_cost = database.Column(database.Integer)
-    user = database.relationship("User", backref="")
-    service = database.relationship("Service", backref="")
+    user = database.relationship("User", back_populates="claims")
+    service = database.relationship("Service")
 
     def __repr__(self) -> str:
         return "<CLaim: {}>".format(self.service)

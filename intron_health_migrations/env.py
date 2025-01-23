@@ -25,7 +25,7 @@ config.set_main_option(
     "sqlalchemy.url", current_app.config.get("SQLALCHEMY_DATABASE_URI")
 )
 # target_metadata = current_app.extensions['migrate'].db.metadata
-from app import database
+from app.extensions import database
 
 target_metadata = database.Model.metadata
 # other values from the config, defined by the needs of env.py,
@@ -85,7 +85,6 @@ def run_migrations_online():
             process_revision_directives=process_revision_directives,
             version_table_schema=target_metadata.schema,
             include_schemas=True,
-            compare_type=True,
             dialect_name="sqlite",
             **current_app.extensions["migrate"].configure_args,
         )

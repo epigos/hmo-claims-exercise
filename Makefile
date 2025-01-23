@@ -15,10 +15,10 @@ format:
 	poetry run black .
 
 upgrade:
-	poetry run flask upgrade
+	poetry run flask db upgrade
 
 downgrade:
-	poetry run flask downgrade
+	poetry run flask db downgrade
 
 start:
 	poetry run flask run

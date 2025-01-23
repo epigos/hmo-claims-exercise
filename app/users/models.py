@@ -14,7 +14,9 @@ class User(database.Model):  # type: ignore[name-defined,misc]
     time_created = database.Column(
         database.DateTime, nullable=False, default=datetime.utcnow
     )
-    claim = database.relationship("Claim")
+    claims = database.relationship(
+        "Claim", back_populates="user", cascade="all, delete-orphan"
+    )
 
     def __repr__(self) -> str:
         return "<User: {}>".format(self.name)

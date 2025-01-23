@@ -9,6 +9,7 @@ class Config:
     SECRET_KEY = os.urandom(16)
     ASSETS_DEBUG = True
     CSRF_ENABLED = True
+    test_directory_path = os.path.dirname(os.path.realpath(__file__))
 
 
 class IntronConfig(Config):
@@ -17,16 +18,26 @@ class IntronConfig(Config):
     """
 
     DEBUG = True
-    TESTING = True
+    TESTING = False
     SQLALCHEMY_ECHO = True
-    test_directory_path = os.path.dirname(os.path.realpath(__file__))
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(
-        test_directory_path, "intron_db.db"
+        Config.test_directory_path, "intron_db.db"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SQLALCHEMY_BINDS = {
-        "test": "sqlite:///" + os.path.join(test_directory_path, "intron_db.db")
+        "test": "sqlite:///" + os.path.join(Config.test_directory_path, "intron_db.db")
     }
 
+class TestingConfig(Config):
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI =  "sqlite:///" + os.path.join(
+        Config.test_directory_path, "test.db"
+    )
+    WTF_CSRF_ENABLED = False
 
-app_config = {"config": IntronConfig}
+
+app_config = {
+    "config": IntronConfig,
+    "testing": TestingConfig,
+}
