@@ -1,0 +1,82 @@
+[tool.poetry]
+name = "hmo-claims-exercise"
+version = "0.1.0"
+description = ""
+authors = ["Philip Adzanoukpe <philip.adzanoukpe@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+alembic = "^1.14.1"
+sqlalchemy = "^2.0.37"
+flask = "^3.1.0"
+flask-assets = "^2.1.0"
+flask-bootstrap = "^3.3.7.1"
+flask-login = "^0.6.3"
+flask-migrate = "^4.1.0"
+flask-script = "^2.0.6"
+flask-sqlalchemy = "^3.1.1"
+flask-uploads = "^0.2.1"
+flask-wtf = "^1.2.2"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.14.1"
+isort = "^5.13.2"
+black = "^24.10.0"
+autoflake = "^2.3.1"
+pre-commit = "^4.1.0"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+ipython = "^8.31.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+target-version = ['py311']
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning"
+]
+
+[tool.mypy]
+strict = true
+exclude = ["tests", "intron_health_migrations/*", "venv"]
+ignore_missing_imports = true
+
+
+[tool.autoflake]
+quiet = true
+remove-all-unused-imports = true
+recursive = true
+
+[tool.isort]
+default_section = "THIRDPARTY"
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+include_trailing_comma = true
+known_first_party = "tests"
+line_length = 88
+multi_line_output = 3
+use_parentheses = true
+skip_glob = "venv/*,intron_health_migratoins/*"
+
+[tool.coverage.report]
+fail_under = 80
+omit = [
+    "*/intron_health_migratoins/*",
+    "*/tests/*",
+    "*application.py"
+]
+exclude_also = [
+    "pragma: no cover",
+    "def __repr__",
+    "@abstract",
+    "raise NotImplementedError",
+    "if TYPE_CHECKING:",
+]
