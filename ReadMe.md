@@ -10,7 +10,7 @@ Run server
 
     make start
 
-Visit http://127.0.0.1:5000/users/ to view the app.
+Visit http://127.0.0.1:5000/claims/ to view claims.
 
 Run tests
     
@@ -28,7 +28,7 @@ Run server
 
     poetry run flask run
 
-Visit http://127.0.0.1:5000/users/ to view the app.
+Visit http://127.0.0.1:5000/claims/ to view claims.
 
 Run tests
 
