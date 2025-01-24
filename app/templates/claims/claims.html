@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% from "claims/_macros.html" import render_status %}
 
 {% block title %} All Users {% endblock %}
 
@@ -33,12 +34,14 @@
                                 </td>
                                 <td>{{ claim.hmo }}</td>
                                 <td>{{ claim.final_cost }}</td>
-                                <td>{{ claim.status.value }}</td>
-
+                                <td>{{ render_status(claim.status.value) }}</td>
                                 <td>{{ claim.time_created.strftime('%Y/%m/%d') }}</td>
                                 <td>
                                     <a href="{{url_for('claims.view_claim', claim_id=claim.id)}}">
                                         <span class="material-icons outlined"> visibility </span>
+                                    </a>
+                                    <a href="{{url_for('claims.edit_claim', claim_id=claim.id)}}">
+                                        <span class="material-icons outlined"> edit </span>
                                     </a>
                                     <a type="button" data-toggle="modal" data-target="#DeleteModal{{claim.id}}">
                                         <span class="material-icons outlined"> delete </span>

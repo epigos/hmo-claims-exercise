@@ -38,7 +38,7 @@ class Claim(database.Model):  # type: ignore[name-defined,misc]
     services = database.relationship("Service")
 
     def __repr__(self) -> str:
-        return "<CLaim: {}>".format(self.service)
+        return "<CLaim: {}>".format(self.services)
 
 
 class Service(database.Model):  # type: ignore[name-defined,misc]

@@ -11,6 +11,8 @@ from wtforms.fields.choices import SelectField
 from wtforms.fields.form import FormField
 from wtforms.fields.list import FieldList
 
+from .models import StatusEnum
+
 HMO_CHOICES = [
     ("", "Select HMO"),
     ("HMO1", "HMO1"),
@@ -75,4 +77,10 @@ class AddClaim(FlaskForm):  # type: ignore[misc]
         FormField(ServiceForm),
         validators=[validators.DataRequired()],
         min_entries=1,
+    )
+
+
+class EditForm(AddClaim):
+    status = SelectField(
+        choices=[(ch.value, ch.value.replace("_", "  ")) for ch in StatusEnum],
     )

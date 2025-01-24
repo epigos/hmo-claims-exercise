@@ -1,0 +1,257 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} User{% endblock %}
+
+{% block body %}
+<div class="user user-claim">
+    <h2 class="text-center">Edit Claim</h2>
+    <form class="form-group claim-form" action="" method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="col">
+            <fieldset class="border mb-4">
+            <legend>Patient Information</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.user_id.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.user_id( id="user-claim", class='form-control') }}
+                            {% for error in form.user_id.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.diagnosis.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.diagnosis(class='form-control', placeholder="Diagnosis")}}
+                            {% for error in form.diagnosis.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.hmo.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.hmo(class='form-control')}}
+                            {% for error in form.hmo.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.age.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.age(id="user-age", class='form-control', readonly="readonly")}}
+                            {% for error in form.age.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.gender.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {% for subfield in form.gender %}
+                                    <tr>
+                                        <td>{{ subfield(**{'disabled': True}) }}</td>
+                                        <td>{{ subfield.label }}</td>
+                                    </tr>
+                            {% endfor %}
+                            {% for error in form.gender.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+                <!-- Services Section -->
+            <fieldset class="border mb-4" id="claimsFieldset">
+            <legend>Service Section</legend>
+                <div id="servicesContainer">
+                {% for service_form in form.services %}
+                    <div class="service-row">
+                    {{ service_form.hidden_tag() }}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.service_date.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ service_form.service_date(class='form-control', placeholder="Service Date")}}
+                                {% for error in service_form.service_date.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.service_name.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ service_form.service_name(class='form-control', placeholder="Service Name")}}
+                                {% for error in service_form.service_name.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.service_type.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {% for subfield in service_form.service_type %}
+                                    {{ subfield }}
+                                    {{ subfield.label }}
+                                    <br/>
+                                {% endfor %}
+                                {% for error in service_form.service_type.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.provider_name.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ service_form.provider_name(class='form-control', placeholder="Provider Name")}}
+                                {% for error in service_form.provider_name.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.source.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ service_form.source(class='form-control', placeholder="Source")}}
+                                {% for error in service_form.source.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{ service_form.cost_of_service.label }}
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                {{ service_form.cost_of_service(class='form-control cost-of-service', placeholder="Cost of Service")}}
+                                {% for error in service_form.cost_of_service.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    </div>
+                    {% endfor %}
+                </div>
+                </fieldset>
+                <div class="row" id="service-div">
+                    <div class="form-group pull-right">
+                        <input type="button" class="btn btn-primary" id="add-service" value="Add Another Service">
+                    </div>
+                </div>
+
+            <fieldset class="border mb-4" id="claimsFieldset">
+            <legend>Total</legend>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.total_cost.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.total_cost(id="total-cost", class='form-control', placeholder="Total Cost", readonly="readonly") }}
+                            {% for error in form.total_cost.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.service_charge.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.service_charge(id="service-charge", class='form-control', placeholder="Service Charge", readonly="readonly") }}
+                            {% for error in form.service_charge.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.final_cost.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.final_cost(id="final-cost", class='form-control', placeholder="Final Cost", readonly="readonly") }}
+                            {% for error in form.final_cost.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{ form.status.label }}
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            {{ form.status(class='form-control') }}
+                            {% for error in form.status.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-success" value="Save Claim">
+            </fieldset>
+            </div>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='js/claim.js') }}"></script>
+{% endblock %}
