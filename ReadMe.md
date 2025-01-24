@@ -1,4 +1,61 @@
-### Intron Health Take Home Interview
+## Setup Instructions
+
+### With Docker
+
+Build docker
+
+    make build
+
+Run server
+
+    make start
+
+Visit http://127.0.0.1:5000/users/ to view the app.
+
+Run tests
+    
+    make tests
+
+### With Python
+
+Install the [Poetry](https://python-poetry.org/docs/) Python package manager
+
+Install dependencies:
+
+    poetry install 
+
+Run server
+
+    poetry run flask run
+
+Visit http://127.0.0.1:5000/users/ to view the app.
+
+Run tests
+
+    poetry run pytest -s tests/ -vvv --cov --cov-report term-missing 
+
+## Notes
+
+- I used [Poetry](https://python-poetry.org/docs/) package instead of the provided venv so that I can seperate the dev and main dependencies.
+- Upgraded python version from 3.7 to 3.11 since v3.7 is deprecated.
+- I tried to restructure the layout of the app by mainly separating the users and claims blueprints into its own module.
+- I also changed the endpoints to make it cleaner and easy to comprehend.
+  - Users endpoints: 
+    - List users: /users/
+    - Add users: /users/add
+    - View: /users/<user_id>
+    - Edit: /users/<user_id>/edit
+    - Delete: /users/<user_id>/delete
+  - Claims endpoints: 
+    - List claims: /claims/
+    - Add claim: /claims/add
+    - View: /claims/<claim_id>
+    - Edit: /claims/<claim_id>/edit
+    - Delete: /claims/<claim_id>/delete
+- Added code linters and formaters which can be installed in git hooks to format the code.
+- Added type checking with mypy.
+
+# Intron Health Take Home Interview
 
 Thank you for taking out time to work on this application. 
 

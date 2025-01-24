@@ -34,8 +34,20 @@ def upgrade():
                 nullable=False,
             )
         )
-        batch_op.add_column(sa.Column("time_created", sa.DateTime(), nullable=False))
-        batch_op.add_column(sa.Column("time_updated", sa.DateTime(), nullable=False))
+        batch_op.add_column(
+            sa.Column(
+                "time_created",
+                sa.DateTime(),
+                nullable=True,
+            )
+        )
+        batch_op.add_column(
+            sa.Column(
+                "time_updated",
+                sa.DateTime(),
+                nullable=True,
+            )
+        )
         batch_op.create_index(batch_op.f("ix_claims_status"), ["status"], unique=False)
 
     # ### end Alembic commands ###

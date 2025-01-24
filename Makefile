@@ -15,17 +15,20 @@ format:
 	poetry run black .
 
 upgrade:
-	poetry run flask db upgrade
+	docker compose run --rm app poetry run flask db upgrade
 
 downgrade:
-	poetry run flask db downgrade
-
-start:
-	poetry run flask run
+	docker compose run --rm app poetry run flask db downgrade
 
 #: run tests
 tests:
-	poetry run pytest -s tests/ -vvv --cov --cov-report term-missing
+	docker compose run --rm app poetry run pytest -s tests/ -vvv --cov --cov-report term-missing
+
+build:
+	docker compose build
+
+start:
+	docker compose up --remove-orphans -d --force-recreate
 
 #: list available make targets
 help:

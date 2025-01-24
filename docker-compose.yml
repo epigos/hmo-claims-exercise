@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - .:/code
+    ports:
+      - "5000:5000"
+    environment:
+      - DEBUG=true
+      - FLASK_APP=application.py
+      - APP_SETTINGS=instance.config.IntronConfig
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+
+networks:
+  default:
+    name: intron-health
