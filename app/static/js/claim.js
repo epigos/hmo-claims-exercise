@@ -1,7 +1,7 @@
 $(document).ready(function(){
     // Counter to track service row index
     let serviceIndex = $('.service-row').length -1;
-    console.log(serviceIndex)
+
     function computeCosts() {
         var totalCost = 0;
 
