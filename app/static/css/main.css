@@ -22,3 +22,6 @@
 input[type="submit"] {
     width: 100%;
 }
+.btn-remove-service {
+    color: #a94442;
+}

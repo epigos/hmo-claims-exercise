@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from app.extensions import database
 
@@ -20,3 +20,6 @@ class User(database.Model):  # type: ignore[name-defined,misc]
 
     def __repr__(self) -> str:
         return "<User: {}>".format(self.name)
+
+    def get_age(self) -> int:
+        return date.today().year - int(self.date_of_birth.year)

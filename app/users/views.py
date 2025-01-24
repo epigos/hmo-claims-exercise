@@ -1,4 +1,13 @@
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
 from werkzeug import Response
 
 from app.extensions import database
@@ -18,7 +27,7 @@ def all_users() -> str:
     return render_template("users/users_lists.html", users=users_lists, title="Users")
 
 
-@users.route("/<int:user_id>", methods=["GET", "POST"])
+@users.route("/<int:user_id>", methods=["GET"])
 def view_user(user_id: int) -> str:
     """
     A route that allows claims officer fillout a form for a particular user
@@ -91,3 +100,15 @@ def delete_user(user_id: int) -> Response:
 
     flash("User deleted successfully.", "success")
     return redirect(url_for("users.all_users"))
+
+
+@users.route("/<int:user_id>/details", methods=["GET"])
+def get_user_details(user_id: int) -> Response:
+    """
+    A route for getting users' details to populate forms.
+    """
+    user = User.query.get(user_id)
+    if not user:
+        abort(404)
+
+    return jsonify({"age": user.get_age(), "gender": user.gender})

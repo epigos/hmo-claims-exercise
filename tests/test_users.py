@@ -73,3 +73,16 @@ def test_can_delete_new_user(client: FlaskClient, new_user: User) -> None:
     assert delete_resp.status_code == 200
     assert "User deleted successfully" in delete_resp.text
     assert new_user.name not in delete_resp.text
+
+
+def test_can_get_user_details_json(client: FlaskClient, new_user: User) -> None:
+    # test user not found raises 404
+    resp = client.get(f"/users/foo/details")
+    assert resp.status_code == 404
+
+    url = f"/users/{new_user.id}/details"
+
+    resp = client.get(url)
+    assert resp.status_code == 200
+    assert resp.json["age"] == new_user.get_age()
+    assert resp.json["gender"] == new_user.gender

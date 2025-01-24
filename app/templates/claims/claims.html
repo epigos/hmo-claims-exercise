@@ -1,0 +1,93 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} All Users {% endblock %}
+
+{% block body %}
+<div class="panel-list">
+    <h3 class="ml-2 mt-3 text-center">All Claims</h3>
+    <div class="row row-content">
+
+        <div class="table-responsive-sm col-12">
+            {% if claims|length > 0 %}
+                <table class="table table-sm table-panel table-desktop" id="userTable">
+                    <thead class="">
+                        <tr>
+                            <th scope="col th-sm">S/N</th>
+                            <th scope="col th-sm">Patient</th>
+                            <th scope="col th-sm">HMO</th>
+                            <th scope="col th-sm">Total cost</th>
+                            <th scope="col th-sm">Status</th>
+                            <th scope="col th-sm">Date Added</th>
+                            <th scope="col th-sm">Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for claim in claims %}
+                            <tr class='clickable-row'>
+                                <th scope="row">{{ loop.index }}</th>
+                                <td>
+                                    <a href="{{url_for('users.view_user', user_id=claim.user.id)}}">
+                                        {{ claim.user.name }}
+                                    </a>
+                                </td>
+                                <td>{{ claim.hmo }}</td>
+                                <td>{{ claim.final_cost }}</td>
+                                <td>{{ claim.status.value }}</td>
+
+                                <td>{{ claim.time_created.strftime('%Y/%m/%d') }}</td>
+                                <td>
+                                    <a href="{{url_for('claims.view_claim', claim_id=claim.id)}}">
+                                        <span class="material-icons outlined"> visibility </span>
+                                    </a>
+                                    <a type="button" data-toggle="modal" data-target="#DeleteModal{{claim.id}}">
+                                        <span class="material-icons outlined"> delete </span>
+                                    </a>
+
+                                       <!-- Delete Modal -->
+                                        <div class="modal" id="DeleteModal{{claim.id}}" >
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title">Delete Claim</h1>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        <p>Are you sure you want to delete this Claim?</h>
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+
+                                                        <form action="{{url_for('claims.delete_claim', claim_id=claim.id)}}" method="post">
+
+                                                            <div class="content-footer">
+                                                                <button class="btn btn-danger deletebtn ">DELETE</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            {% else %}
+                <div class="text-center empty-table" style="display: block;">No Claims to display</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

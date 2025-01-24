@@ -24,8 +24,11 @@ from flask import current_app
 config.set_main_option(
     "sqlalchemy.url", current_app.config.get("SQLALCHEMY_DATABASE_URI")
 )
+from app.claim import models  # noqa
+
 # target_metadata = current_app.extensions['migrate'].db.metadata
 from app.extensions import database
+from app.users import models  # noqa
 
 target_metadata = database.Model.metadata
 # other values from the config, defined by the needs of env.py,

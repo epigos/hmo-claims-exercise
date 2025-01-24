@@ -60,10 +60,6 @@ def upgrade():
             ["claims.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("provider_name"),
-        sa.UniqueConstraint("service_name"),
-        sa.UniqueConstraint("source"),
-        sa.UniqueConstraint("type"),
     )
     # ### end Alembic commands ###
 
